@@ -7,19 +7,22 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 export const metadata = {
-  title: 'Solaris',
-  description: '下一代智能AI应用',
-}
+  title: "Solaris",
+  description: "下一代智能AI应用",
+};
 
-
+import HomeMap from "@/components/map/home";
 
 export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-        <h1 className="text-4xl font-bold text-white mb-4">Welcome to Solaris</h1>
+        <h1 className="text-4xl font-bold text-white mb-4">
+          Welcome to Solaris
+        </h1>
+        <HomeMap />
         <p className="text-lg text-white mb-8">Your AI-powered companion</p>
-        </div>
+      </div>
     </>
-  )
+  );
 }
