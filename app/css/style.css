@@ -1,0 +1,27 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/range-slider.css';
+@import 'additional-styles/toggle-switch.css';
+@import 'additional-styles/theme.css';
+
+@import 'tailwindcss/utilities';
+
+/* Additional Tailwind directives: https://tailwindcss.com/docs/functions-and-directives/#responsive */
+@layer utilities {
+    .rtl {
+        direction: rtl;
+    }
+}
+
+  .beian-link::before {
+    content: url('./../../public/images/icp.png');
+      /* 图标路径 */
+      display: inline-block;
+      margin-right: 4px;
+      /* 图标和文字的间距 */
+      vertical-align: middle;
+      /* 图标与文字对齐 */
+  }
