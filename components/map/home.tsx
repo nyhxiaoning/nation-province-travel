@@ -21,11 +21,20 @@ export default function ChinaMap() {
   }, [mapName]);
 
   const loadMap = async (name: string) => {
-    const res = await fetch(`/maps/${name}.json`);
-    const json = await res.json();
-    console.log("[ json ] >", json);
-    echarts.registerMap(name, json);
-    setGeoJson(json);
+    try {
+      const res = await fetch(`/maps/${name}.json`);
+      const json = await res.json();
+      if (json?.type === "FeatureCollection") {
+        echarts.registerMap(name, json);
+        setGeoJson(json); // 只在注册成功后更新状态
+        setMapName(name); // 确保 geo.map 用的是已注册的 name
+      } else {
+        console.error("非法 GeoJSON 文件", json);
+      }
+      console.log("json", json);
+    } catch (e) {
+      console.error("加载地图失败", e);
+    }
   };
 
   const handleClick = (params: any) => {
@@ -80,13 +89,13 @@ export default function ChinaMap() {
     ],
   };
 
-  return (
+  return geoJson ? (
     <ReactECharts
       option={option}
       style={{ height: "600px" }}
-      onEvents={{
-        click: handleClick,
-      }}
+      onEvents={{ click: handleClick }}
     />
+  ) : (
+    <div>正在加载地图数据...</div>
   );
 }
