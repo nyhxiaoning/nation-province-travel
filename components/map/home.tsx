@@ -90,9 +90,10 @@ export default function ChinaMap() {
   };
 
   return geoJson ? (
+    // 注意：width和高度，必须给，否则地图无法显示
     <ReactECharts
       option={option}
-      style={{ height: "600px" }}
+      style={{ height: "600px",width: "100%" }}
       onEvents={{ click: handleClick }}
     />
   ) : (
