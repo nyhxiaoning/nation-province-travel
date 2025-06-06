@@ -5,7 +5,7 @@ const https = require('https');
 // 读取文件并获取数据的函数
 async function fetchMapData(adcode) {
     return new Promise((resolve, reject) => {
-        const url = `https://geo.datav.aliyun.com/areas/bound/${adcode}.json`;
+        const url = `https://geo.datav.aliyun.com/areas/bound/${adcode}_full.json`;
         https.get(url, (res) => {
             let data = '';
             res.on('data', (chunk) => data += chunk);
