@@ -2,19 +2,16 @@
 
 import * as echarts from "echarts";
 
-// ChinaMap.tsx
 import React, { useEffect, useState } from "react";
 
+import ProvinceDetail from "./province-detail";
 import ReactECharts from "echarts-for-react";
-
-// 全国 https://geo.datav.aliyun.com/areas/bound/100000_full.json        # 全国地图
-// 广东 https://geo.datav.aliyun.com/areas/bound/440000_full.json        # 广东
-// 北京 https://geo.datav.aliyun.com/areas/bound/110000_full.json        # 北京
 
 export default function ChinaMap() {
   const [mapName, setMapName] = useState("china");
   const [geoJson, setGeoJson] = useState(null);
   const [provinceName, setProvinceName] = useState("");
+  const [showDetail, setShowDetail] = useState(false);
 
   useEffect(() => {
     loadMap(mapName);
@@ -38,10 +35,13 @@ export default function ChinaMap() {
   };
 
   const handleClick = (params: any) => {
-    const name = params.name;
-    setProvinceName(name);
-    // 点击切换为省份地图
-    setMapName(name);
+    // 点击切换为详情视图
+    loadMap(params.name);
+  };
+
+  const handleCloseDetail = () => {
+    setShowDetail(false);
+    setProvinceName("");
   };
 
   const option = {
@@ -93,7 +93,7 @@ export default function ChinaMap() {
     // 注意：width和高度，必须给，否则地图无法显示
     <ReactECharts
       option={option}
-      style={{ height: "600px",width: "100%" }}
+      style={{ height: "600px", width: "100%" }}
       onEvents={{ click: handleClick }}
     />
   ) : (
