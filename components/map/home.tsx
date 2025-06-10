@@ -123,7 +123,7 @@ export default function ChinaMap() {
       <div className="flex-1">
         <ProvinceContent province={provinceName} loadMap={loadMap} />
       </div>
-      <div className="flex-auto">
+      <div className="flex-1">
         <ReactECharts
           option={option}
           style={{ height: "800px", width: "100%" }}
