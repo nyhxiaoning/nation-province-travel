@@ -115,7 +115,7 @@ export default function ChinaMap() {
           },
           {
             name: "我去过了",
-            value: [119.4, 33.041544], // 示例：北京市中心
+            value: [119.4, 33.041544],
             symbol: "pin",
             symbolSize: 50,
             label: {
