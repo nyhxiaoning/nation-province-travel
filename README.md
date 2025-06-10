@@ -35,3 +35,9 @@ https://geo.datav.aliyun.com/areas/bound/460000_full.json
 ### 内蒙古
 
 看过大草原
+
+## 其他问题：
+
+### 路由
+
+增加 app 下面的路由文件夹后，需要重新打包

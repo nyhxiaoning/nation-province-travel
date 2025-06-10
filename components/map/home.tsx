@@ -4,6 +4,7 @@ import * as echarts from "echarts";
 
 import React, { useEffect, useState } from "react";
 
+import ProvinceContent from "./province-content";
 import ProvinceDetail from "./province-detail";
 import ReactECharts from "echarts-for-react";
 
@@ -29,6 +30,7 @@ export default function ChinaMap() {
   }, [mapName]);
 
   const loadMap = async (name: string) => {
+    debugger;
     try {
       const res = await fetch(`/maps/${name}.json`);
       const json = await res.json();
@@ -117,11 +119,18 @@ export default function ChinaMap() {
   };
 
   return geoJson ? (
-    <ReactECharts
-      option={option}
-      style={{ height: "600px", width: "100%" }}
-      onEvents={{ click: handleClick }}
-    />
+    <div className="flex w-full scroll-m-0">
+      <div className="flex-1">
+        <ProvinceContent province={provinceName} loadMap={loadMap} />
+      </div>
+      <div className="flex-auto">
+        <ReactECharts
+          option={option}
+          style={{ height: "800px", width: "100%" }}
+          onEvents={{ click: handleClick }}
+        />
+      </div>
+    </div>
   ) : (
     <div>正在加载地图数据...</div>
   );
