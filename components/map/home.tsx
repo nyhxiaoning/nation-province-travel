@@ -7,6 +7,17 @@ import React, { useEffect, useState } from "react";
 import ProvinceDetail from "./province-detail";
 import ReactECharts from "echarts-for-react";
 
+// 定义需要特殊标记的省份列表
+const HIGHLIGHTED_PROVINCES = [
+  "海南省",
+  "四川省",
+  "云南省",
+  "上海市",
+  "福建省",
+  "新疆维吾尔自治区",
+  "内蒙古自治区",
+];
+
 export default function ChinaMap() {
   const [mapName, setMapName] = useState("china");
   const [geoJson, setGeoJson] = useState(null);
@@ -23,25 +34,33 @@ export default function ChinaMap() {
       const json = await res.json();
       if (json?.type === "FeatureCollection") {
         echarts.registerMap(name, json);
-        setGeoJson(json); // 只在注册成功后更新状态
-        setMapName(name); // 确保 geo.map 用的是已注册的 name
+        setGeoJson(json);
+        setMapName(name);
       } else {
         console.error("非法 GeoJSON 文件", json);
       }
-      console.log("json", json);
     } catch (e) {
       console.error("加载地图失败", e);
     }
   };
 
   const handleClick = (params: any) => {
-    // 点击切换为详情视图
     loadMap(params.name);
   };
 
   const handleCloseDetail = () => {
     setShowDetail(false);
     setProvinceName("");
+  };
+
+  const getColorByProvince = (provinceName: string) => {
+    // 创建一个稳定的哈希值
+    const hash = Array.from(provinceName).reduce(
+      (acc, char) => acc + char.charCodeAt(0),
+      0
+    );
+    const colors = ["#ff6b6b", "#4ecdc4", "#45b7d1"]; // 三种颜色
+    return colors[hash % colors.length];
   };
 
   const option = {
@@ -60,13 +79,21 @@ export default function ChinaMap() {
         show: true,
         color: "#333",
       },
+      //itemStyle 可以用来定义每个地区的填充色（areaColor）、描边颜色（borderColor）等。
       itemStyle: {
-        areaColor: "#f3f3f3",
+        areaColor: HIGHLIGHTED_PROVINCES.includes(mapName)
+          ? "#ffcccc"
+          : getColorByProvince(mapName),
         borderColor: "#666",
       },
+      //emphasis 包含的内容结构与 itemStyle 类似，可以设置高亮状态下元素的各种样式。
       emphasis: {
         label: { color: "red" },
-        itemStyle: { areaColor: "#ffcccc" },
+        itemStyle: {
+          areaColor: HIGHLIGHTED_PROVINCES.includes(mapName)
+            ? "#ffcccc"
+            : getColorByProvince(mapName),
+        },
       },
     },
     series: [
@@ -90,7 +117,6 @@ export default function ChinaMap() {
   };
 
   return geoJson ? (
-    // 注意：width和高度，必须给，否则地图无法显示
     <ReactECharts
       option={option}
       style={{ height: "600px", width: "100%" }}
