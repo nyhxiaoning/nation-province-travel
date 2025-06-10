@@ -112,6 +112,13 @@ export default function PlacesToGo({ loadMap, province }) {
                     {province}
                   </span>
                   <div className="flex space-x-2">
+                    {/* 旅行日记 */}
+                    <button
+                      onClick={() => openMapModal(province)}
+                      className="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded text-sm"
+                    >
+                      旅行日记
+                    </button>
                     {/* 查看按钮 */}
                     <button
                       onClick={() => openMapModal(province)}
@@ -129,13 +136,6 @@ export default function PlacesToGo({ loadMap, province }) {
                     </button>
                   </div>
                 </div>
-
-                {/* 旅行介绍内容（可选展开） */}
-                {expandedTips === province && (
-                  <div className="mt-3 pt-3 border-t border-gray-300 text-gray-700">
-                    {detail}
-                  </div>
-                )}
               </li>
             );
           })}
