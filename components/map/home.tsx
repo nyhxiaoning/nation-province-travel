@@ -104,13 +104,13 @@ export default function ChinaMap() {
         coordinateSystem: "geo",
         data: [
           {
-            name: "红旗",
+            name: "我去过了",
             value: [113.2644, 23.1291], // 示例：广州市中心
             symbol: "pin",
             symbolSize: 50,
             label: {
               show: true,
-              formatter: "红旗",
+              formatter: "占领区",
             },
           },
         ],
