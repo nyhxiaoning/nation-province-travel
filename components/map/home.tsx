@@ -113,6 +113,16 @@ export default function ChinaMap() {
               formatter: "占领区",
             },
           },
+          {
+            name: "我去过了",
+            value: [119.4, 33.041544], // 示例：北京市中心
+            symbol: "pin",
+            symbolSize: 50,
+            label: {
+              show: true,
+              formatter: "占领区",
+            },
+          },
         ],
       },
     ],
