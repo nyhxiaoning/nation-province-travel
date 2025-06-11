@@ -58,7 +58,13 @@ const provinceDetails: ProvinceDetail[] = [
   },
 ];
 
-export default function PlacesToGo({ loadMap, province }) {
+export default function PlacesToGo({
+  loadMap,
+  province,
+}: {
+  loadMap: any;
+  province: any;
+}) {
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
   const [expandedTips, setExpandedTips] = useState<string | null>(null);
   const [showMapModal, setShowMapModal] = useState<boolean>(false);
