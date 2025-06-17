@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 import ProvinceDetailTsx from "./province-detail";
+
 
 // 定义需要特殊标记的省份列表
 const HIGHLIGHTED_PROVINCES = [
@@ -96,7 +98,14 @@ export default function PlacesToGo({
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center mb-6">我想去的地方</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          我想去的地方：
+          <span>
+            <Link href={'/game'}>玩个转盘</Link>
+          </span>
+          </h1>
+
+        
 
         <ul className="space-y-4">
           {HIGHLIGHTED_PROVINCES.map((province, index) => {
