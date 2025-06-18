@@ -1,68 +1,122 @@
 import { useRef, useState } from "react";
 
+const SEGMENTS = 8;
+const RADIUS = 100;
+const CENTER = RADIUS;
+const COLORS = {
+    normal: "#d1d5db",
+    selected: "#ef4444",
+};
+
+function getPath(index: number, total: number, radius: number) {
+    const angle = (2 * Math.PI) / total;
+    const startAngle = index * angle - Math.PI / 2;
+    const endAngle = startAngle + angle;
+    const x1 = CENTER + radius * Math.cos(startAngle);
+    const y1 = CENTER + radius * Math.sin(startAngle);
+    const x2 = CENTER + radius * Math.cos(endAngle);
+    const y2 = CENTER + radius * Math.sin(endAngle);
+    return `
+    M ${CENTER} ${CENTER}
+    L ${x1} ${y1}
+    A ${radius} ${radius} 0 0 1 ${x2} ${y2}
+    Z
+  `;
+}
+
 export default function EightSegmentWheel() {
-    const SEGMENTS = 8;
+    const [tooltip, setTooltip] = useState<{ index: number; x: number; y: number } | null>(null);
+    const segmentContents = [
+        '海南', '四川', '云南', '上海',
+        '福建', '新疆', '内蒙古', '天津',
+    ];
     const [isSpinning, setIsSpinning] = useState(false);
     const [selected, setSelected] = useState<number | null>(null);
-    const wheelRef = useRef<HTMLDivElement>(null);
+    const [rotateDeg, setRotateDeg] = useState(0);
+    const wheelRef = useRef<SVGSVGElement>(null);
 
     const spin = () => {
         if (isSpinning) return;
         const randIndex = Math.floor(Math.random() * SEGMENTS);
         const degreePerSegment = 360 / SEGMENTS;
-        const rotate = 360 * 5 + (360 - randIndex * degreePerSegment - degreePerSegment / 2);
+        const rotate =
+            360 * 5 +
+            (360 - randIndex * degreePerSegment - degreePerSegment / 2);
         setIsSpinning(true);
         setSelected(null);
-        if (wheelRef.current) {
-            wheelRef.current.style.transition = 'transform 4s cubic-bezier(0.23, 1, 0.32, 1)';
-            wheelRef.current.style.transform = `rotate(${rotate}deg)`;
-        }
+        setRotateDeg(rotate);
+
         setTimeout(() => {
             setIsSpinning(false);
             setSelected(randIndex);
         }, 4000);
     };
 
-    const getSegmentStyle = (index: number) => {
-        const rotate = (360 / SEGMENTS) * index;
-        return {
-            transform: `rotate(${rotate}deg) skewY(-45deg)`,
-            background: selected === index ? '#ef4444' : '#d1d5db',
-            transition: 'background 0.3s',
-        };
-    };
-
     return (
         <div className="flex flex-col items-center gap-4 mt-10">
-            <div className="relative w-[240px] h-[240px]">
-                <div
+            <div className="relative w-[220px] h-[220px]">
+                <svg
                     ref={wheelRef}
-                    className="absolute w-full h-full rounded-full"
-                    style={{ transform: 'rotate(0deg)', transition: 'transform 0s' }}
+                    width={RADIUS * 2}
+                    height={RADIUS * 2}
+                    style={{
+                        transition: isSpinning ? "transform 4s cubic-bezier(0.23, 1, 0.32, 1)" : "none",
+                        transform: `rotate(${rotateDeg}deg)`,
+                    }}
                 >
                     {[...Array(SEGMENTS)].map((_, i) => (
-                        <div
+                        <path
                             key={i}
-                            className="absolute left-1/2 top-1/2 w-1/2 h-1/2 origin-left"
-                            style={getSegmentStyle(i)}
-                        />
+                            d={getPath(i, SEGMENTS, RADIUS)}
+                            fill={selected === i ? COLORS.selected : COLORS.normal}
+                            stroke="#fff"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={e => {
+                                const rect = e.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                                if (rect) {
+                                    setTooltip({
+                                        index: i,
+                                        x: e.clientX - rect.left,
+                                        y: e.clientY - rect.top,
+                                    });
+                                }
+                            }}
+                   />
                     ))}
-                </div>
-                {/* 指针 */}
-                {/* <div className="absolute left-1/2 top-1 w-0 h-0" style={{ transform: 'translateX(-50%)' }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <polygon points="12,0 20,12 4,12" fill="#f87171" stroke="#b91c1c" strokeWidth="1" />
-                    </svg>
-                </div> */}
+                    {tooltip && (
+                        <foreignObject x={tooltip.x - 60} y={tooltip.y - 40} width="120" height="40">
+                            <div
+                                style={{
+                                    background: '#fff',
+                                    border: '1px solid #888',
+                                    borderRadius: 6,
+                                    padding: 6,
+                                    fontSize: 12,
+                                    boxShadow: '0 2px 8px #0002',
+                                    pointerEvents: 'auto'
+                                }}
+                                onClick={e => e.stopPropagation()}
+                                onMouseLeave={() => setTooltip(null)}
+                            >
+                                {segmentContents[tooltip.index]}
+                            </div>
+                        </foreignObject>
+                    )}
+                </svg>
             </div>
             <button
                 className="px-4 py-1 bg-gray-700 text-white rounded disabled:opacity-50"
                 onClick={spin}
                 disabled={isSpinning}
             >
-                {isSpinning ? '旋转中...' : '旋转灰色转盘'}
+                {isSpinning ? "旋转中..." : "旋转灰色圆盘"}
             </button>
-            {selected !== null && <p className="text-base font-bold text-red-600">选中第 {selected + 1} 块</p>}
+            {selected !== null && (
+                <p className="text-base font-bold text-red-600">
+                    选中 {segmentContents[selected]} 
+                </p>
+            )}
         </div>
     );
 }
