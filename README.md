@@ -1,5 +1,13 @@
 # Free Tailwind landing page template
 
+## 注意：实时nextjs热更新问题
+
+```js
+npx serve@latest out
+启动：
+
+```
+
 ## 新增当前的城市地区内容展示
 
 https://geo.datav.aliyun.com/areas/bound/110000_full.json
