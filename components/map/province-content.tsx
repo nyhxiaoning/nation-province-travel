@@ -101,7 +101,8 @@ export default function PlacesToGo({
         <h1 className="text-3xl font-bold text-center mb-6">
           我想去的地方：
           <span>
-            <Link href={'/game'}>去哪里转盘</Link>
+            <Link href={'/game'}>去哪里转盘</Link><br />
+            <Link href={'/piano'}>钢琴世界</Link>
           </span>
           </h1>
 
