@@ -23,13 +23,24 @@ export default function PianoSinger() {
     window.speechSynthesis.speak(utterance);
   };
 
-  const renderPiece = (title: string, description: string) => (
+  const renderPiece = (title: string, description: string, audioUrl?: string) => (
     <div className="my-4">
       <h3
-        className="text-lg font-semibold text-blue-700 mb-1 cursor-pointer"
+        className="text-lg font-semibold text-blue-700 mb-1 cursor-pointer flex items-center gap-2"
         onClick={() => speakText(title)}
       >
         🎵 {title}
+        {audioUrl && (
+          <a
+            href={audioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 border border-green-300"
+            onClick={e => e.stopPropagation()}
+          >
+            试听
+          </a>
+        )}
       </h3>
       <p className="text-gray-700 leading-relaxed text-sm bg-white p-3 rounded shadow">
         {description}
@@ -81,25 +92,31 @@ export default function PianoSinger() {
           </h2>
           {renderPiece(
             "E小调，BWV855",
-            "这首曲目以二声部的简洁形式展示出巴赫独到的复调艺术，前奏曲流动感极强，而赋格则展现出三声部之间清晰的对位关系，是学习复调技法的经典范例。"
+            "这首曲目以二声部的简洁形式展示出巴赫独到的复调艺术，前奏曲流动感极强，而赋格则展现出三声部之间清晰的对位关系，是学习复调技法的经典范例。",
+            "https://www.youtube.com/watch?v=j7XyjmQ5_xE"
           )}
           {renderPiece(
             "C大调，BWV846",
-            "前奏曲如奥林匹亚的平静与晴朗，赋格曲为四声部，全曲由5个发展部组成。。"
+            "前奏曲如奥林匹亚的平静与晴朗，赋格曲为四声部，全曲由5个发展部组成。。",
+            ""
+
           )}
           {renderPiece(
             "C小调，BWV847",
-            "前奏曲速度变化频繁，后半段是粗犷的托卡塔风格，赋格曲为三声部。"
+            "前奏曲速度变化频繁，后半段是粗犷的托卡塔风格，赋格曲为三声部。",
+            ""
           )}
 
           {renderPiece(
             "升C大调，BWV848",
-            "前奏曲气氛如沐浴夏日之阳光，赋格曲为三声部，有嘉禾舞曲风格。"
+            "前奏曲气氛如沐浴夏日之阳光，赋格曲为三声部，有嘉禾舞曲风格。",
+            ""
           )}
 
           {renderPiece(
             "升C小调，BWV849",
-            "这是一首具有宗教性氛围的作品，前奏曲富有精神性，赋格曲以五声部展开，构成三重赋格，是作曲技术上的巅峰之作，被誉为最神圣的巴赫曲目之一。"
+            "这是一首具有宗教性氛围的作品，前奏曲富有精神性，赋格曲以五声部展开，构成三重赋格，是作曲技术上的巅峰之作，被誉为最神圣的巴赫曲目之一。",
+            ""
           )}
 
           <h2 className="text-2xl font-bold mb-2">
