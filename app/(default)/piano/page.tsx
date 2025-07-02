@@ -470,6 +470,104 @@ export default function PianoSinger() {
         <section ref={(el: HTMLElement | null) => { anchorRefs.current["xxx2"] = el; }}>
           <h2 className="text-2xl font-bold">xxx2（预留内容）</h2>
           <p className="text-gray-600">可用于后续添加新的作曲家或专题内容。</p>
+          {renderPiece(
+            "卡农",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/kanong.mp3",
+          )}
+
+          {renderPiece(
+            "蓝色多瑙河",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/lanseduonuohe.mp3",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/lanseduonuohe2.mp3",
+          )}
+
+          {renderPiece(
+            "马勒三交响曲",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/maledisanjiaoxiangqu.mp3",
+          )}
+
+          {renderPiece(
+            "莫扎特小夜曲",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/mozhatexiaoyequ.mp3",
+
+          )}
+
+          {renderPiece(
+            "帕格尼尼狂想曲",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/pageninikuangxiangqu.mp3",
+
+          )}
+
+          {renderPiece(
+            "肖邦圆舞曲",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/xiaobangyuanwuqu.mp3",
+
+          )}
+
+          {renderPiece(
+            "菊次郎的夏天",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/jucilang.mp3",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/summer.mp3",
+
+          )}
+
+          {renderPiece(
+            "天空之城",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/tiankong1.mp3",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/tiankong2.mp3",
+
+          )}
+
+
+          {renderPiece(
+            "梦中的婚礼",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/mengzhongdehunli.mp3",
+
+          )}
+
+          {renderPiece(
+            "蓝色的爱",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/lansedeai.mp3",
+
+          )}
+
+          {renderPiece(
+            "爱的纪念",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/aidejinian.mp3",
+
+          )}
+
+          {renderPiece(
+            "秋日私语",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/qiurisiyu.mp3",
+
+          )}
+
+          {renderPiece(
+            "水边的阿狄丽娜",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/shuibiande.mp3",
+
+          )}
+
+          {renderPiece(
+            "星空",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/xingkong.mp3",
+
+          )}
         </section>
       </div>
     </div>
