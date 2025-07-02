@@ -283,12 +283,14 @@ export default function PianoSinger() {
           <h2 className="text-2xl font-bold mb-2">宗教与晚期作品</h2>
           {renderPiece(
             "《安魂曲（K.626）》",
-            "临终未完成的遗作，合唱庄严悲怆，充满宿命感"
+            "临终未完成的遗作，合唱庄严悲怆，充满宿命感",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/mozhate/anhqu.mp3"
           )}
 
           {renderPiece(
             "《D大调嬉游曲（K.136）》第一乐章",
-            "木管乐器交织出明快旋律，展现早期作品的活泼童趣。"
+            "木管乐器交织出明快旋律，展现早期作品的活泼童趣。",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/mozhate/ddadiaoxiyouqu.mp3"
           )}
         </section>
 
@@ -399,6 +401,12 @@ export default function PianoSinger() {
             "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/shuimeiren.mp3",
           )}
 
+          {renderPiece(
+            "四小天鹅 圆舞曲",
+            "轻快活泼的节奏刻画小天鹅天真灵动的形象",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/4xiaotiane.mp3",
+          )}
+
           <h2 className="text-2xl font-bold mb-2">柴可夫斯基:交响曲</h2>
           {renderPiece(
             "《第四交响曲》第一乐章",
@@ -450,6 +458,12 @@ export default function PianoSinger() {
             "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/yefugannixuqu.mp3",
           )}
 
+          <h2 className="text-2xl font-bold mb-2">柴可夫斯基:其他</h2>
+          {renderPiece(
+            "船歌",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/chuangge.mp3",
+          )}
         </section>
 
         {/* 额外锚点保留 */}
