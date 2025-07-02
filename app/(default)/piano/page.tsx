@@ -56,7 +56,7 @@ export default function PianoSinger() {
 
   const renderPiece: any = (
     title: string,
-    description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined,
+    description: string,
     audioUrl1: unknown,
     audioUrl2: unknown,
     audioUrl3: unknown,
