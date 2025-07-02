@@ -4,7 +4,7 @@
 import React,{ useRef } from "react";
 
 export default function PianoSinger() {
-  const anchorRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const anchorRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const scrollToAnchor = (anchor: string) => {
     const el = anchorRefs.current[anchor];
@@ -54,22 +54,22 @@ export default function PianoSinger() {
     audioUrl4?: string;  // 可根据需要扩展更多
   }
 
-  const renderPiece: React.FC<RenderPieceProps> = (
-    title,
-    description,
-    audioUrl1,
-    audioUrl2,
-    audioUrl3,
-    audioUrl4,
+  const renderPiece: any = (
+    title: string,
+    description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined,
+    audioUrl1: unknown,
+    audioUrl2: unknown,
+    audioUrl3: unknown,
+    audioUrl4: unknown,
   ) => {
     // 收集所有非空的音频URL，形成数组（按参数顺序排列）
     const audioUrls = React.useMemo(() => {
       const urls: string[] = [];
       // 依次检查每个音频参数，非空则加入数组
-      if (audioUrl1) urls.push(audioUrl1);
-      if (audioUrl2) urls.push(audioUrl2);
-      if (audioUrl3) urls.push(audioUrl3);
-      if (audioUrl4) urls.push(audioUrl4);
+      if (typeof audioUrl1 === 'string') urls.push(audioUrl1);
+      if (typeof audioUrl2 === 'string') urls.push(audioUrl2);
+      if (typeof audioUrl3 === 'string') urls.push(audioUrl3);
+      if (typeof audioUrl4 === 'string') urls.push(audioUrl4);
       return urls;
     }, [audioUrl1, audioUrl2, audioUrl3, audioUrl4]);
 
@@ -140,7 +140,7 @@ export default function PianoSinger() {
 
       <div className="pt-16 px-4 space-y-12 bg-gray-50 min-h-screen">
         {/* 巴赫 */}
-        <section ref={(el) => (anchorRefs.current["bach"] = el)}>
+        <section ref={(el: HTMLElement | null) => { anchorRefs.current["bach"] = el; }}>
           <h2 className="text-2xl font-bold mb-2">
             巴赫十二平均律：第一卷（BWV846-869）
           </h2>
@@ -215,7 +215,7 @@ export default function PianoSinger() {
         </section>
 
         {/* 莫扎特 */}
-        <section ref={(el) => (anchorRefs.current["mozart"] = el)}>
+        <section ref={(el: HTMLElement | null) => { anchorRefs.current["mozart"] = el; }}>
           <h2 className="text-2xl font-bold mb-2">莫扎特：古典音乐：协奏曲与交响曲</h2>
           {renderPiece(
             "第21号钢琴协奏曲 第二乐章",
@@ -294,7 +294,7 @@ export default function PianoSinger() {
 
 
         {/* 贝多芬 */}
-        <section ref={(el) => (anchorRefs.current["beethoven"] = el)}>
+        <section ref={(el: HTMLElement | null) => { anchorRefs.current["beethoven"] = el; }}>
           <h2 className="text-2xl font-bold mb-2">贝多芬交响曲与钢琴奏鸣曲</h2>
           {renderPiece(
             "第五交响曲（命运） 第一乐章",
@@ -379,7 +379,7 @@ export default function PianoSinger() {
         </section>
 
         {/* 柴可夫斯基 */}
-        <section ref={(el) => (anchorRefs.current["Tchaikovsky"] = el)}>
+        <section ref={(el: HTMLElement | null) => { anchorRefs.current["Tchaikovsky"] = el; }}>
           <h2 className="text-2xl font-bold mb-2">柴可夫斯基:芭蕾舞剧</h2>
           {renderPiece(
             "天鹅湖 圆舞曲",
@@ -453,7 +453,7 @@ export default function PianoSinger() {
         </section>
 
         {/* 额外锚点保留 */}
-        <section ref={(el) => (anchorRefs.current["xxx2"] = el)}>
+        <section ref={(el: HTMLElement | null) => { anchorRefs.current["xxx2"] = el; }}>
           <h2 className="text-2xl font-bold">xxx2（预留内容）</h2>
           <p className="text-gray-600">可用于后续添加新的作曲家或专题内容。</p>
         </section>
