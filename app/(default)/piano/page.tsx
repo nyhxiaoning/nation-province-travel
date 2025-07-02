@@ -456,6 +456,7 @@ export default function PianoSinger() {
             "《叶甫盖尼·奥涅金》:连斯基的叙事曲",
             "男高音深情演绎，表达了年轻诗人对爱情的向往与失落。",
             "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/yefugannixuqu.mp3",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/chaikefu/yefugannixuqu2.mp3",
           )}
 
           <h2 className="text-2xl font-bold mb-2">柴可夫斯基:其他</h2>
@@ -566,6 +567,14 @@ export default function PianoSinger() {
             "星空",
             "钢琴小品",
             "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/xingkong.mp3",
+
+          )}
+
+          {renderPiece(
+            "土耳其进行曲",
+            "钢琴小品",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/tuerqi.mp3",
+            "https://raw.githubusercontent.com/nyhxiaoning/pianos/main/others/tuerqi2.mp3",
 
           )}
         </section>
