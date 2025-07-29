@@ -54,24 +54,33 @@ export default function PianoSinger() {
     audioUrl4?: string;  // 可根据需要扩展更多
   }
 
-  const renderPiece: any = (
+  const renderPiece = (
     title: string,
     description: string,
-    audioUrl1: unknown,
-    audioUrl2: unknown,
-    audioUrl3: unknown,
-    audioUrl4: unknown,
+    audioUrl1?: string,
+    audioUrl2?: string,
+    audioUrl3?: string,
+    audioUrl4?: string,
   ) => {
-    // 收集所有非空的音频URL，形成数组（按参数顺序排列）
+    const [loops, setLoops] = React.useState<{ [k: number]: boolean }>({});
+    const audioRefs = React.useRef<(HTMLAudioElement | null)[]>([]);
+
     const audioUrls = React.useMemo(() => {
       const urls: string[] = [];
-      // 依次检查每个音频参数，非空则加入数组
       if (typeof audioUrl1 === 'string') urls.push(audioUrl1);
       if (typeof audioUrl2 === 'string') urls.push(audioUrl2);
       if (typeof audioUrl3 === 'string') urls.push(audioUrl3);
       if (typeof audioUrl4 === 'string') urls.push(audioUrl4);
       return urls;
     }, [audioUrl1, audioUrl2, audioUrl3, audioUrl4]);
+
+    const setLoop = (idx: number, value: boolean) => {
+      setLoops(l => ({ ...l, [idx]: value }));
+      // 立即设置audio标签的loop属性
+      if (audioRefs.current[idx]) {
+        audioRefs.current[idx]!.loop = value;
+      }
+    };
 
     return (
       <div className="my-4">
@@ -80,21 +89,42 @@ export default function PianoSinger() {
           onClick={() => speakText(title)}
         >
           🎵 {title}
-
-          {/* 渲染所有传入的音频URL（按参数顺序） */}
           {audioUrls.map((url, index) => (
-            <audio
-              key={index}  // 按顺序索引作为key（简单场景适用）
-              controls
-              className="ml-2 px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 border border-green-300"
-              title={`音频 ${index + 1}`}  // 显示音频序号
-            >
-              <source src={url} type="audio/mpeg" />
-              您的浏览器不支持 audio 标签。
-            </audio>
+            <span key={index} className="flex items-center gap-1">
+              <audio
+                ref={el => (audioRefs.current[index] = el)}
+                controls
+                className="ml-2 px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 border border-green-300"
+                title={`音频 ${index + 1}`}
+                loop={!!loops[index]}
+              >
+                <source src={url} type="audio/mpeg" />
+                您的浏览器不支持 audio 标签。
+              </audio>
+              {!loops[index] ? (
+                <button
+                  className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded border border-blue-300 hover:bg-blue-200"
+                  onClick={e => {
+                    e.stopPropagation();
+                    setLoop(index, true);
+                  }}
+                >
+                  循环播放
+                </button>
+              ) : (
+                <button
+                  className="text-xs px-2 py-0.5 bg-red-100 text-red-700 rounded border border-red-300 hover:bg-red-200"
+                  onClick={e => {
+                    e.stopPropagation();
+                    setLoop(index, false);
+                  }}
+                >
+                  停止循环
+                </button>
+              )}
+            </span>
           ))}
         </h3>
-
         <p className="text-gray-700 leading-relaxed text-sm bg-white p-3 rounded shadow">
           {description}
         </p>
