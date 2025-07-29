@@ -164,7 +164,7 @@ export default function PianoSinger() {
           onClick={() => scrollToAnchor("xxx2")}
           className="text-blue-600 font-bold"
         >
-          xxx2
+          其他+白噪音：未来可以互相配合播放
         </button>
       </div>
 
